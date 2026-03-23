@@ -1,65 +1,75 @@
-import Image from "next/image";
+import { Suspense } from "react";
+import SectionHero from "@/src/components/SectionHero";
+import BannerMarquee from "@/src/ui/BannerMarquee";
+import FeaturedProductCard from "@/src/ui/FeatureProductCard";
+import ProductCard from "@/src/ui/ProductCard";
+import ProductGridSkeleton from "@/src/ui/ProductGridSkeleton";
+import { getRandomProducts } from "@/src/lib/api/products";
+import { Product } from "@/src/lib/api/products";
+
+export const dynamic = "force-dynamic";
+
+function ProductsLoader() {
+  return <ProductGridSkeleton />;
+}
+
+async function FeaturedProducts() {
+  const products: Product[] = await getRandomProducts(6);
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-primary border-b border-primary">
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          id={product.id}
+            imageSrc={product.images?.product?.[0] ?? "https://hotmodagency.com/wp-content/uploads/2022/08/placeholder-1-1.jpeg"}
+          title={product.name}
+          price={Number(product.price)}
+          isNew={product.isNew}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <SectionHero />
+      <BannerMarquee text="Free Shipping for all orders over $ 500" />
+      <div className="w-full py-20 px-[30px] flex justify-center border-y border-primary">
+        <h2 className="text-3xl xl:text-6xl font-bold md:max-w-7xl text-center leading-11 xl:leading-[72px]">
+          KŌRA is a carefully curated collection of minimalist designs, where
+          each piece combines timeless elegance and functionality, perfect for
+          enhancing modern spaces with purpose and style.
+        </h2>
+      </div>
+      <Suspense fallback={<ProductsLoader />}>
+        <FeaturedProducts />
+      </Suspense>
+      <BannerMarquee text="Subscribe for our Newsletter and get a 10% Discount" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-primary border-t border-b border-primary">
+        <FeaturedProductCard
+          href="store/bedroom"
+          imageSrc="https://www.mocka.com.au/cdn/shop/files/T03958_Square_LowRes_04_b2feb722-8d75-489d-9636-64aa4117c2d8.jpg?v=1756217083&width=1080"
+          btnText="Discover Bedroom"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        <FeaturedProductCard
+          href="store/livingroom"
+          imageSrc="https://www.mocka.com.au/cdn/shop/files/T04446_Lores_07.jpg?v=1759151557&width=1080"
+          btnText="Discover Living Room"
+        />
+        <FeaturedProductCard
+          href="store/diningroom"
+          imageSrc="https://www.mocka.com.au/cdn/shop/files/T04063_LowRes_06_2989c851-c6fa-49f1-9629-540be16b1dd4.jpg?v=1756218813&width=1080"
+          btnText="Discover Dining Room"
+        />
+        <FeaturedProductCard
+          href="store/desks"
+          imageSrc="https://www.mocka.com.au/cdn/shop/files/T00819_LoRes_01_69b0f3df-a373-4c25-9870-2184700e7ef2.jpg?v=1756216365&width=1080"
+          btnText="Discover Desks"
+        />
+      </div>
+    </>
   );
 }
