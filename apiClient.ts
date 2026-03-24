@@ -51,15 +51,14 @@ export type Product = {
 export type OrderItem = {
   productId: string;
   quantity: number;
-  price: number;
-  name: string;
+  price?: number;
+  name?: string;
+  image?: string;
 };
 
 export type Order = {
   id: string;
   userId: string;
-  productId?: string;
-  quantity?: number;
   items: OrderItem[];
   totalPrice: number;
   status: "pending" | "confirmed" | "cancelled" | "shipped";
@@ -74,14 +73,11 @@ const defaultHeaders = {
   "Content-Type": "application/json",
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://apx-n3-13-backend-ecommerce.vercel.app";
-
 async function fetchJson<T>(
   url: string,
   options: RequestInit = {},
 ): Promise<FetchResult<T>> {
-  const fullUrl = url.startsWith("/api") ? `${API_URL}${url}` : url;
-  const res = await fetch(fullUrl, options);
+  const res = await fetch(url, options);
   const data = await res.json().catch(() => null);
 
   if (!res.ok) {
@@ -99,9 +95,7 @@ async function fetchJson<T>(
 
 export const apiClient = {
   // ========== AUTH ==========
-  sendCode: async (
-    email: string,
-  ): Promise<FetchResult<{ message: string }>> => {
+  sendCode: async (email: string): Promise<FetchResult<{ message: string }>> => {
     return fetchJson("/api/auth", {
       method: "POST",
       headers: defaultHeaders,
@@ -137,9 +131,7 @@ export const apiClient = {
     return fetchJson(url, { method: "GET", headers: defaultHeaders });
   },
 
-  getProductById: async (
-    id: string,
-  ): Promise<FetchResult<{ product: Product }>> => {
+  getProductById: async (id: string): Promise<FetchResult<{ product: Product }>> => {
     return fetchJson(`/api/products/${id}`, {
       method: "GET",
       headers: defaultHeaders,
@@ -162,10 +154,8 @@ export const apiClient = {
   > => {
     const params = new URLSearchParams();
     if (query) params.set("q", query);
-    if (options?.offset !== undefined)
-      params.set("offset", String(options.offset));
-    if (options?.limit !== undefined)
-      params.set("limit", String(options.limit));
+    if (options?.offset !== undefined) params.set("offset", String(options.offset));
+    if (options?.limit !== undefined) params.set("limit", String(options.limit));
 
     return fetchJson(`/api/search?${params.toString()}`, {
       method: "GET",
@@ -242,19 +232,10 @@ export const apiClient = {
   createOrder: async (
     token: string,
     orderData: {
-      items?: Array<{ productId: string; quantity: number }>;
-      productId?: string;
-      quantity?: number;
+      items: Array<{ productId: string; quantity: number }>;
       shippingAddress?: Address;
     },
-  ): Promise<
-    FetchResult<{
-      message: string;
-      order: Order;
-      paymentUrl: string;
-      paymentId: string;
-    }>
-  > => {
+  ): Promise<FetchResult<{ message: string; order: Order; paymentUrl: string; paymentId: string }>> => {
     return fetchJson("/api/order", {
       method: "POST",
       headers: {

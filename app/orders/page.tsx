@@ -103,12 +103,12 @@ export default function OrdersPage() {
                   </div>
 
                   <div className="space-y-4">
-                    {order.items.map((item: { productId: string; name: string; quantity: number; price: number }, index: number) => (
+                    {order.items.map((item, index) => (
                       <div key={index} className="flex gap-4">
                         <div className="relative w-16 h-16 flex-shrink-0">
                           <Image
-                            src={item.productId}
-                            alt={item.name}
+                            src={item.image || "/placeholder.jpg"}
+                            alt={item.name || "Product"}
                             fill
                             className="object-cover"
                           />
@@ -117,7 +117,7 @@ export default function OrdersPage() {
                           <p className="font-bold text-sm">{item.name}</p>
                           <p className="text-sm opacity-70">Qty: {item.quantity}</p>
                         </div>
-                        <p className="font-bold">${item.price * item.quantity}</p>
+                        <p className="font-bold">${(item.price || 0) * item.quantity}</p>
                       </div>
                     ))}
                   </div>

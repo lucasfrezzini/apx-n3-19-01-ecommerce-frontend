@@ -85,6 +85,7 @@ export default function CheckoutPage() {
       const items = cart.map((item) => ({
         productId: item.id,
         quantity: item.quantity,
+        image: item.image,
       }));
 
       const result = await createOrder(tokenToUse!, { items, shippingAddress: address });

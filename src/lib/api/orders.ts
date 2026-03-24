@@ -9,7 +9,7 @@ export type ShippingAddress = {
 };
 
 export type CreateOrderPayload = {
-  items: { productId: string; quantity: number }[];
+  items: { productId: string; quantity: number; image?: string }[];
   shippingAddress: ShippingAddress;
 };
 
