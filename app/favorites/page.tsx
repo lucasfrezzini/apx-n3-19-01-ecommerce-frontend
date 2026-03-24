@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { favoritesAtom, toggleFavoriteAtom, hydrateFavoritesAtom } from "@/src/store/favoritesAtom";
+import {
+  favoritesAtom,
+  toggleFavoriteAtom,
+  hydrateFavoritesAtom,
+} from "@/src/store/favoritesAtom";
 import { apiClient, Product } from "../../apiClient";
 import UserSidebar from "@/src/ui/user/UserSidebar";
 import ProductCard from "@/src/ui/ProductCard";
@@ -30,15 +34,18 @@ export default function FavoritesPage() {
       }
 
       try {
-        const productPromises = favorites.map((id) => apiClient.getProductById(id));
+        const productPromises = favorites.map((id) =>
+          apiClient.getProductById(id),
+        );
         const results = await Promise.all(productPromises);
-        
+
         const fetchedProducts = results
-          .filter((result): result is { success: true; product: Product } => 
-            result.success && "product" in result
+          .filter(
+            (result): result is { success: true; product: Product } =>
+              result.success && "product" in result,
           )
           .map((result) => result.product);
-        
+
         setProducts(fetchedProducts);
       } catch (err) {
         console.error("Failed to fetch favorites:", err);
@@ -63,7 +70,10 @@ export default function FavoritesPage() {
           <main className="flex-1">
             <div className="animate-pulse space-y-4">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="h-32 bg-gray-200 border border-primary"></div>
+                <div
+                  key={i}
+                  className="h-32 bg-gray-200 border border-primary"
+                ></div>
               ))}
             </div>
           </main>
@@ -83,8 +93,13 @@ export default function FavoritesPage() {
           {products.length === 0 ? (
             <div className="border border-primary p-8 text-center">
               <p className="opacity-70 mb-4">You have no favorites yet.</p>
-              <p className="text-sm opacity-50 mb-6">Start adding some products to your favorites!</p>
-              <Link href="/store" className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">
+              <p className="text-sm opacity-50 mb-6">
+                Start adding some products to your favorites!
+              </p>
+              <Link
+                href="/store"
+                className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition"
+              >
                 Browse Products
               </Link>
             </div>
@@ -97,13 +112,24 @@ export default function FavoritesPage() {
                     className="absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition"
                     aria-label="Remove from favorites"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-red-500">
-                      <path fillRule="evenodd" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" clipRule="evenodd" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-5 h-5 text-red-500"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                   </button>
                   <ProductCard
                     id={product.id}
-                    imageSrc={product.images?.product?.[0] || "/placeholder.jpg"}
+                    imageSrc={
+                      product.images?.product?.[0] || "/placeholder.jpg"
+                    }
                     title={product.name}
                     price={product.price}
                     alt={product.name}

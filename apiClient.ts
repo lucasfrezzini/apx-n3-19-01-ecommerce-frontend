@@ -73,11 +73,14 @@ const defaultHeaders = {
   "Content-Type": "application/json",
 };
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://apx-n3-13-backend-ecommerce.vercel.app";
+
 async function fetchJson<T>(
   url: string,
   options: RequestInit = {},
 ): Promise<FetchResult<T>> {
-  const res = await fetch(url, options);
+  const fullUrl = url.startsWith("/api") ? `${API_URL}${url}` : url;
+  const res = await fetch(fullUrl, options);
   const data = await res.json().catch(() => null);
 
   if (!res.ok) {

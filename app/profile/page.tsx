@@ -38,7 +38,9 @@ export default function ProfilePage() {
   useEffect(() => {
     if (authLoading) return;
 
-    const tokenToUse = token || (typeof window !== "undefined" ? localStorage.getItem("auth:v1") : null);
+    const tokenToUse =
+      token ||
+      (typeof window !== "undefined" ? localStorage.getItem("auth:v1") : null);
     if (!tokenToUse || !user) return;
 
     setName(user.name || "");
@@ -61,7 +63,9 @@ export default function ProfilePage() {
     setSuccess(false);
     setError("");
 
-    const tokenToUse = token || (typeof window !== "undefined" ? localStorage.getItem("auth:v1") : null);
+    const tokenToUse =
+      token ||
+      (typeof window !== "undefined" ? localStorage.getItem("auth:v1") : null);
     if (!tokenToUse) {
       setError("You are not authenticated");
       setSaving(false);
@@ -69,8 +73,16 @@ export default function ProfilePage() {
     }
 
     try {
-      if (name !== user?.name || phone !== user?.phone || avatarUrl !== user?.avatarUrl) {
-        const result = await apiClient.updateMe(tokenToUse, { name, phone, avatarUrl });
+      if (
+        name !== user?.name ||
+        phone !== user?.phone ||
+        avatarUrl !== user?.avatarUrl
+      ) {
+        const result = await apiClient.updateMe(tokenToUse, {
+          name,
+          phone,
+          avatarUrl,
+        });
         if (result.success) {
           const userResult = await apiClient.getMe(tokenToUse);
           if (userResult.success) {
@@ -110,17 +122,21 @@ export default function ProfilePage() {
           <form onSubmit={handleSubmit} className="space-y-8">
             <section className="border border-primary p-6">
               <h2 className="font-bold text-lg mb-4">Personal Information</h2>
-              
+
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Email
+                  </label>
                   <input
                     type="email"
                     value={user?.email || ""}
                     disabled
                     className="w-full px-4 py-2 border border-primary bg-gray-100 text-gray-500 cursor-not-allowed"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Email cannot be changed
+                  </p>
                 </div>
 
                 <div>
@@ -134,7 +150,9 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Phone</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Phone
+                  </label>
                   <input
                     type="tel"
                     value={phone}
@@ -144,7 +162,9 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Avatar URL</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Avatar URL
+                  </label>
                   <input
                     type="url"
                     value={avatarUrl}
@@ -154,7 +174,11 @@ export default function ProfilePage() {
                   />
                   {avatarUrl && (
                     <div className="mt-2">
-                      <img src={avatarUrl} alt="Avatar preview" className="w-16 h-16 rounded-full object-cover border border-primary" />
+                      <img
+                        src={avatarUrl}
+                        alt="Avatar preview"
+                        className="w-16 h-16 rounded-full object-cover border border-primary"
+                      />
                     </div>
                   )}
                 </div>
@@ -163,14 +187,18 @@ export default function ProfilePage() {
 
             <section className="border border-primary p-6">
               <h2 className="font-bold text-lg mb-4">Shipping Address</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium mb-1">Street</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Street
+                  </label>
                   <input
                     type="text"
                     value={address.street}
-                    onChange={(e) => setAddress({ ...address, street: e.target.value })}
+                    onChange={(e) =>
+                      setAddress({ ...address, street: e.target.value })
+                    }
                     className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
@@ -180,37 +208,51 @@ export default function ProfilePage() {
                   <input
                     type="text"
                     value={address.city}
-                    onChange={(e) => setAddress({ ...address, city: e.target.value })}
+                    onChange={(e) =>
+                      setAddress({ ...address, city: e.target.value })
+                    }
                     className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">State / Province</label>
+                  <label className="block text-sm font-medium mb-1">
+                    State / Province
+                  </label>
                   <input
                     type="text"
                     value={address.state}
-                    onChange={(e) => setAddress({ ...address, state: e.target.value })}
+                    onChange={(e) =>
+                      setAddress({ ...address, state: e.target.value })
+                    }
                     className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Postal Code</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Postal Code
+                  </label>
                   <input
                     type="text"
                     value={address.postalCode}
-                    onChange={(e) => setAddress({ ...address, postalCode: e.target.value })}
+                    onChange={(e) =>
+                      setAddress({ ...address, postalCode: e.target.value })
+                    }
                     className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Country</label>
+                  <label className="block text-sm font-medium mb-1">
+                    Country
+                  </label>
                   <input
                     type="text"
                     value={address.country}
-                    onChange={(e) => setAddress({ ...address, country: e.target.value })}
+                    onChange={(e) =>
+                      setAddress({ ...address, country: e.target.value })
+                    }
                     className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>

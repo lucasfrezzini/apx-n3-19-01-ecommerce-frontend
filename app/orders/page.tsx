@@ -77,8 +77,13 @@ export default function OrdersPage() {
           {orders.length === 0 ? (
             <div className="border border-primary p-8 text-center">
               <p className="opacity-70 mb-4">You have no orders yet.</p>
-              <p className="text-sm opacity-50 mb-6">Start shopping to see your orders here!</p>
-              <Link href="/store" className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">
+              <p className="text-sm opacity-50 mb-6">
+                Start shopping to see your orders here!
+              </p>
+              <Link
+                href="/store"
+                className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition"
+              >
                 Browse Products
               </Link>
             </div>
@@ -95,7 +100,7 @@ export default function OrdersPage() {
                     </div>
                     <span
                       className={`px-3 py-1 text-white text-sm ${getStatusColor(
-                        order.status
+                        order.status,
                       )}`}
                     >
                       {order.status}
@@ -115,9 +120,13 @@ export default function OrdersPage() {
                         </div>
                         <div className="flex-1">
                           <p className="font-bold text-sm">{item.name}</p>
-                          <p className="text-sm opacity-70">Qty: {item.quantity}</p>
+                          <p className="text-sm opacity-70">
+                            Qty: {item.quantity}
+                          </p>
                         </div>
-                        <p className="font-bold">${(item.price || 0) * item.quantity}</p>
+                        <p className="font-bold">
+                          ${(item.price || 0) * item.quantity}
+                        </p>
                       </div>
                     ))}
                   </div>

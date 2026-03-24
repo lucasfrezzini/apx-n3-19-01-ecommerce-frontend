@@ -72,7 +72,9 @@ export async function getProductById(id: string): Promise<Product> {
   return result.product;
 }
 
-export async function getProductsByCategory(category: string): Promise<Product[]> {
+export async function getProductsByCategory(
+  category: string,
+): Promise<Product[]> {
   const result = await apiClient.getProducts({ category });
   if (!result.success) {
     throw new Error(result.error);
