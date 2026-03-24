@@ -109,6 +109,13 @@ export default function NavbarActions({ variant }: Props) {
               >
                 My Orders
               </Link>
+              <Link
+                href="/favorites"
+                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                onClick={() => setDropdownOpen(false)}
+              >
+                My Favorites
+              </Link>
             </div>
             <div className="border-t border-primary py-2">
               <button

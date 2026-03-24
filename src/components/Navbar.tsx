@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { hydrateCartAtom } from "@/src/store/cartAtoms";
 import { hydrateAuthAtom } from "@/src/store/authAtoms";
+import { hydrateFavoritesAtom } from "@/src/store/favoritesAtom";
 import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
 
 import NavbarLogo from "../ui/navbar/NavbarLogo";
@@ -24,12 +25,14 @@ export const Navbar = () => {
   const [, closeDrawer] = useAtom(closeDrawerAtom);
   const [, hydrateCart] = useAtom(hydrateCartAtom);
   const [, hydrateAuth] = useAtom(hydrateAuthAtom);
+  const [, hydrateFavorites] = useAtom(hydrateFavoritesAtom);
 
   const pathname = usePathname();
 
   useEffect(() => {
     hydrateCart();
     hydrateAuth();
+    hydrateFavorites();
   }, []);
 
   useEffect(() => {
