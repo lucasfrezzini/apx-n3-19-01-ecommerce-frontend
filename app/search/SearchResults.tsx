@@ -110,7 +110,15 @@ export default function SearchResults() {
   }, [q, page, loadingMore, hasMore]);
 
   if (loading) {
-    return <ProductGridSkeleton />;
+    return (
+      <>
+        <div className="mt-[53px] border-b border-primary p-8">
+          <div className="h-8 w-64 bg-foreground animate-pulse mb-2" />
+          <div className="h-4 w-32 bg-foreground animate-pulse" />
+        </div>
+        <ProductGridSkeleton />
+      </>
+    );
   }
 
   if (!q.trim()) {
