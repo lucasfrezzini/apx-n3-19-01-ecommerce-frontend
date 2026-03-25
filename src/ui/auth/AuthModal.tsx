@@ -58,7 +58,7 @@ function AuthModal() {
       />
       <aside
         className={`
-          fixed z-[70] right-0 w-full max-w-md h-full
+          fixed z-[70] right-0 w-full max-w-md h-screen
           bg-background border-l border-primary
           transform transition-transform duration-300
           ${isOpen ? "translate-x-0" : "translate-x-full"}
