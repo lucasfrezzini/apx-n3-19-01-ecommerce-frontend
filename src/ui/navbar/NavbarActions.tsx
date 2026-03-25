@@ -131,45 +131,78 @@ export default function NavbarActions({ variant }: Props) {
           </svg>
         </button>
 
-        {dropdownOpen && user && (
+        {dropdownOpen && (
           <div className="absolute right-0 mt-2 w-56 bg-background border border-primary shadow-lg z-50">
-            <div className="p-4 border-b border-primary">
-              <p className="font-bold text-sm truncate">
-                {user.name || "User"}
-              </p>
-              <p className="text-xs text-gray-500 truncate">{user.email}</p>
-            </div>
-            <div className="py-2">
-              <Link
-                href="/profile"
-                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
-                onClick={() => setDropdownOpen(false)}
-              >
-                My Profile
-              </Link>
-              <Link
-                href="/orders"
-                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
-                onClick={() => setDropdownOpen(false)}
-              >
-                My Orders
-              </Link>
-              <Link
-                href="/favorites"
-                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
-                onClick={() => setDropdownOpen(false)}
-              >
-                My Favorites
-              </Link>
-            </div>
-            <div className="border-t border-primary py-2">
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-primary/10 transition-colors"
-              >
-                Sign Out
-              </button>
-            </div>
+            {user ? (
+              <>
+                <div className="p-4 border-b border-primary">
+                  <p className="font-bold text-sm truncate">{user.name || "User"}</p>
+                  <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                </div>
+                <div className="py-2">
+                  <Link
+                    href="/profile"
+                    className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    My Profile
+                  </Link>
+                  <Link
+                    href="/orders"
+                    className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    My Orders
+                  </Link>
+                  <Link
+                    href="/favorites"
+                    className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    My Favorites
+                  </Link>
+                </div>
+                <div className="border-t border-primary py-2">
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-primary/10 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="px-4 py-4">
+                <Link
+                  href="/"
+                  className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/store"
+                  className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  Shop
+                </Link>
+                <Link
+                  href="/about"
+                  className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  Contact
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </div>
