@@ -2,12 +2,13 @@
 
 import { useAtom } from "jotai";
 import { useState, useEffect } from "react";
-import { drawerAtom, closeDrawerAtom, searchAtom } from "@/src/store/uiAtoms";
+import { useRouter } from "next/navigation";
+import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
 
 export default function SearchDrawer() {
   const [drawer] = useAtom(drawerAtom);
   const [, closeDrawer] = useAtom(closeDrawerAtom);
-  const [, setSearch] = useAtom(searchAtom);
+  const router = useRouter();
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,14 +18,13 @@ export default function SearchDrawer() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      setSearch(inputValue);
+      router.push(`/search?q=${encodeURIComponent(inputValue.trim())}`);
       closeDrawer();
     }
   };
 
   const handleClose = () => {
     setInputValue("");
-    setSearch("");
     closeDrawer();
   };
 

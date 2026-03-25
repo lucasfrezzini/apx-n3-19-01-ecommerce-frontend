@@ -23,5 +23,3 @@ export const openAuthAtom = atom(null, (get, set) => {
 export const closeDrawerAtom = atom(null, (get, set) => {
   set(drawerAtom, null);
 });
-
-export const searchAtom = atom<string>("");

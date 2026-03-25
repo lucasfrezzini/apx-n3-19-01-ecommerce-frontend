@@ -1,24 +1,23 @@
 "use client";
 
-import { useAtom } from "jotai";
 import ProductGrid from "@/src/components/GridProducts";
 import { useProducts } from "@/src/hooks/useProducts";
-import { searchAtom } from "@/src/store/uiAtoms";
 import ProductGridSkeleton from "@/src/ui/ProductGridSkeleton";
 import Button from "@/src/ui/Button";
 
 export default function StorePage() {
-  const [search] = useAtom(searchAtom);
-  const { products, loading, loadingMore, hasMore, loadMore } = useProducts({
-    search,
-  });
+  const { products, loading, loadingMore, hasMore, loadMore } = useProducts();
 
   if (loading) {
-    return <ProductGridSkeleton />;
+    return (
+      <div className="max-w-7xl mx-auto px-[30px] py-10">
+        <ProductGridSkeleton />
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className="max-w-7xl mx-auto px-[30px] py-10">
       <ProductGrid products={products} />
       {loadingMore && <ProductGridSkeleton />}
       {hasMore && !loadingMore && (
@@ -26,6 +25,6 @@ export default function StorePage() {
           <Button onClick={loadMore}>See more products</Button>
         </div>
       )}
-    </>
+    </div>
   );
 }
