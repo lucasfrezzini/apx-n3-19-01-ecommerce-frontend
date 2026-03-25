@@ -74,7 +74,7 @@ export default function SearchResults() {
       );
       setProducts(normalized);
       setTotal(data.total);
-      setHasMore(data.page < data.totalPages);
+      setHasMore(data.results.length === PRODUCTS_PER_PAGE && data.page < data.totalPages);
     } catch (err) {
       console.error("Search failed:", err);
     } finally {
@@ -103,7 +103,7 @@ export default function SearchResults() {
           normalizeProduct(p as AlgoliaProduct)
         );
         setProducts((prev) => [...prev, ...normalized]);
-        setHasMore(data.page < data.totalPages);
+        setHasMore(data.results.length === PRODUCTS_PER_PAGE && data.page < data.totalPages);
         setLoadingMore(false);
       });
     }
