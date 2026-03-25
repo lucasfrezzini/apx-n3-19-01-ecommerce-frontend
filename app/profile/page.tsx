@@ -110,24 +110,33 @@ export default function ProfilePage() {
 
   if (authLoading) {
     return (
-      <div className="max-w-4xl mx-auto p-6 mt-[49px]">
-        <h1 className="font-bold text-2xl mb-8">My Profile</h1>
-        <div className="flex flex-col md:flex-row gap-8">
+      <div className="mt-[49px]">
+        <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">My Profile</h1>
+        <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+          <span className="font-bold text-2xl">My Profile</span>
+        </div>
+        <div className="flex">
           <UserSidebar activePage="profile" />
-          <ProfileSkeleton />
+          <main className="hidden md:block md:pl-72 flex-1 p-6">
+            <ProfileSkeleton />
+          </main>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-[49px]">
-      <h1 className="font-bold text-2xl mb-8">My Profile</h1>
+    <div className="mt-[49px]">
+      <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">My Profile</h1>
+      
+      <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+        <span className="font-bold text-2xl">My Profile</span>
+      </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex">
         <UserSidebar activePage="profile" />
 
-        <main className="flex-1">
+        <main className="hidden md:block md:pl-72 flex-1 p-6">
           <form onSubmit={handleSubmit} className="space-y-8">
             <section className="border border-primary p-6">
               <h2 className="font-bold text-lg mb-4">Personal Information</h2>

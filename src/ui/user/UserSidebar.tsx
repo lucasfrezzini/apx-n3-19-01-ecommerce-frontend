@@ -65,8 +65,8 @@ export default function UserSidebar({ activePage }: Props) {
   };
 
   return (
-    <aside className="w-full md:w-64 flex-shrink-0">
-      <nav className="border border-primary p-4">
+    <aside className="hidden md:block fixed top-[49px] left-0 w-64 h-[calc(100vh-49px)] z-40 overflow-y-auto">
+      <nav className="border border-primary p-4 bg-background">
         <ul className="space-y-1">
           {sidebarItems.map((item) => {
             const isActive = item.href === `/${activePage}` || 

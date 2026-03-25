@@ -65,24 +65,33 @@ export default function OrdersPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="max-w-4xl mx-auto p-6 mt-[49px]">
-        <h1 className="font-bold text-2xl mb-8">My Orders</h1>
-        <div className="flex flex-col md:flex-row gap-8">
+      <div className="mt-[49px]">
+        <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">My Orders</h1>
+        <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+          <span className="font-bold text-2xl">My Orders</span>
+        </div>
+        <div className="flex">
           <UserSidebar activePage="orders" />
-          <OrdersListSkeleton />
+          <main className="hidden md:block md:pl-72 flex-1 p-6">
+            <OrdersListSkeleton />
+          </main>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-[49px]">
-      <h1 className="font-bold text-2xl mb-8">My Orders</h1>
+    <div className="mt-[49px]">
+      <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">My Orders</h1>
+      
+      <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+        <span className="font-bold text-2xl">My Orders</span>
+      </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex">
         <UserSidebar activePage="orders" />
 
-        <main className="flex-1">
+        <main className="hidden md:block md:pl-72 flex-1 p-6">
           {orders.length === 0 ? (
             <div className="border border-primary p-8 text-center">
               <p className="opacity-70 mb-4">You have no orders yet.</p>

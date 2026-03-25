@@ -72,24 +72,33 @@ export default function FavoritesPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="max-w-4xl mx-auto p-6 mt-[49px]">
-        <h1 className="font-bold text-2xl mb-8">My Favorites</h1>
-        <div className="flex flex-col md:flex-row gap-8">
+      <div className="mt-[49px]">
+        <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">My Favorites</h1>
+        <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+          <span className="font-bold text-2xl">My Favorites</span>
+        </div>
+        <div className="flex">
           <UserSidebar activePage="favorites" />
-          <FavoritesListSkeleton />
+          <main className="hidden md:block md:pl-72 flex-1 p-6">
+            <FavoritesListSkeleton />
+          </main>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-[49px]">
-      <h1 className="font-bold text-2xl mb-8">My Favorites</h1>
+    <div className="mt-[49px]">
+      <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">My Favorites</h1>
+      
+      <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+        <span className="font-bold text-2xl">My Favorites</span>
+      </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex">
         <UserSidebar activePage="favorites" />
 
-        <main className="flex-1">
+        <main className="hidden md:block md:pl-72 flex-1 p-6">
           {products.length === 0 ? (
             <div className="border border-primary p-8 text-center">
               <p className="opacity-70 mb-4">You have no favorites yet.</p>
@@ -104,19 +113,19 @@ export default function FavoritesPage() {
               </Link>
             </div>
            ) : (
-             <div className="space-y-4">
-               {products.map((product) => (
-                 <FavoriteItem
-                   key={product.id}
-                   id={product.id}
-                   imageSrc={product.images?.product?.[0] || "/placeholder.jpg"}
-                   title={product.name}
-                   price={product.price}
-                   category={product.category}
-                 />
-               ))}
-             </div>
-          )}
+              <div className="space-y-4">
+                {products.map((product) => (
+                  <FavoriteItem
+                    key={product.id}
+                    id={product.id}
+                    imageSrc={product.images?.product?.[0] || "/placeholder.jpg"}
+                    title={product.name}
+                    price={product.price}
+                    category={product.category}
+                  />
+                ))}
+              </div>
+           )}
         </main>
       </div>
     </div>

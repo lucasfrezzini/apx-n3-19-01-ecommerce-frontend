@@ -23,7 +23,7 @@ const footerColumns = [
 
 const Footer: FC = () => {
   return (
-    <footer className="w-full pl-px border-b border-primary">
+    <footer className="w-full pl-px border-b border-t border-primary">
       <div className="grid grid-cols-1 md:grid-cols-3 w-full">
         {footerColumns.map((column, i) => (
           <div
