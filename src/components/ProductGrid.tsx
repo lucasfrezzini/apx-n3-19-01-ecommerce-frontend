@@ -7,8 +7,14 @@ type Props = {
 };
 
 export default function ProductGrid({ products, className }: Props) {
-  const remainder = products.length % 3;
-  const fillers = remainder === 0 ? 0 : 3 - remainder;
+  const tabletColumns = 2;
+  const desktopColumns = 3;
+
+  const remainderTablet = products.length % tabletColumns;
+  const fillersTablet = remainderTablet === 0 ? 0 : tabletColumns - remainderTablet;
+
+  const remainderDesktop = products.length % desktopColumns;
+  const fillersDesktop = remainderDesktop === 0 ? 0 : desktopColumns - remainderDesktop;
 
   return (
     <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-primary border-b border-primary ${className || ""}`}>
@@ -26,8 +32,18 @@ export default function ProductGrid({ products, className }: Props) {
         />
       ))}
 
-      {Array.from({ length: fillers }).map((_, i) => (
-        <div key={`filler-${i}`} className="size-full bg-background"></div>
+      {Array.from({ length: fillersDesktop }).map((_, i) => (
+        <div
+          key={`desktop-filler-${i}`}
+          className="size-full bg-background hidden lg:block"
+        />
+      ))}
+
+      {Array.from({ length: fillersTablet }).map((_, i) => (
+        <div
+          key={`tablet-filler-${i}`}
+          className="size-full bg-background hidden md:block lg:hidden"
+        />
       ))}
     </div>
   );
