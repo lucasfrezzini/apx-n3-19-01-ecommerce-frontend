@@ -68,7 +68,7 @@ export default function OrdersPage() {
   }
 
   if (loading) {
-    return null;
+    return <OrdersSkeleton />;
   }
 
   return (
