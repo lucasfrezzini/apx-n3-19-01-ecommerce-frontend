@@ -14,25 +14,19 @@ export default function CategoryPage() {
   });
 
   if (loading) {
-    return (
-      <div className="max-w-7xl mx-auto px-[30px] py-10">
-        <ProductGridSkeleton />
-      </div>
-    );
+    return <ProductGridSkeleton />;
   }
 
   if (!products || products.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto px-[30px] py-10">
-        <div className="border border-primary p-8 text-center">
-          <p className="opacity-70">No products found in this category.</p>
-        </div>
+      <div className="border border-primary p-8 text-center">
+        <p className="opacity-70">No products found in this category.</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-[30px] py-10">
+    <>
       <ProductGrid products={products} />
       {loadingMore && <ProductGridSkeleton />}
       {hasMore && !loadingMore && (
@@ -40,6 +34,6 @@ export default function CategoryPage() {
           <Button onClick={loadMore}>See more products</Button>
         </div>
       )}
-    </div>
+    </>
   );
 }
