@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { userAtom, tokenAtom } from "@/src/store/authAtoms";
 import { apiClient, Address } from "../../apiClient";
 import UserSidebar from "@/src/ui/user/UserSidebar";
+import ProfileSkeleton from "@/src/ui/ProfileSkeleton";
 
 export const dynamic = "force-dynamic";
 
@@ -108,7 +109,7 @@ export default function ProfilePage() {
   };
 
   if (authLoading) {
-    return null;
+    return <ProfileSkeleton />;
   }
 
   return (
