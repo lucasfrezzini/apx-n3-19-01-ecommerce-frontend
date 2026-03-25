@@ -75,7 +75,7 @@ export default function FavoritesPage() {
   }
 
   if (loading) {
-    return null;
+    return <FavoritesSkeleton />;
   }
 
   return (
