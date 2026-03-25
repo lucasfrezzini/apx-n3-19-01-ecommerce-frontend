@@ -2,7 +2,7 @@
 
 const FavoritesListSkeleton = () => {
   return (
-    <div className="space-y-4">
+    <main className="flex-1 space-y-4">
       {[1, 2, 3].map((i) => (
         <div key={i} className="flex gap-4 border border-primary p-4">
           <div className="w-24 h-24 bg-foreground animate-pulse flex-shrink-0" />
@@ -16,7 +16,7 @@ const FavoritesListSkeleton = () => {
           </div>
         </div>
       ))}
-    </div>
+    </main>
   );
 };
 

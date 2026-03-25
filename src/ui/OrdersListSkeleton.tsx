@@ -2,7 +2,7 @@
 
 const OrdersListSkeleton = () => {
   return (
-    <div className="space-y-6">
+    <main className="flex-1 space-y-6">
       {[1, 2, 3].map((i) => (
         <div key={i} className="border border-primary p-6">
           <div className="flex justify-between items-start mb-4">
@@ -32,7 +32,7 @@ const OrdersListSkeleton = () => {
           </div>
         </div>
       ))}
-    </div>
+    </main>
   );
 };
 
