@@ -70,9 +70,12 @@ export default function OrdersPage() {
         <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
           <span className="font-bold text-2xl">My Orders</span>
         </div>
-        <div className="flex">
+        <main className="md:hidden p-6 pt-4">
+          <OrdersListSkeleton />
+        </main>
+        <div className="hidden md:flex">
           <UserSidebar activePage="orders" />
-          <main className="hidden md:block md:pl-72 flex-1 p-6">
+          <main className="md:pl-72 flex-1 p-6 pt-[89px]">
             <OrdersListSkeleton />
           </main>
         </div>
@@ -88,22 +91,56 @@ export default function OrdersPage() {
         <span className="font-bold text-2xl">My Orders</span>
       </div>
 
-      <div className="flex">
-        <UserSidebar activePage="orders" />
+      <main className="md:hidden p-6 pt-4">
+        {orders.length === 0 ? (
+          <div className="border border-primary p-8 text-center">
+            <p className="opacity-70 mb-4">You have no orders yet.</p>
+            <p className="text-sm opacity-50 mb-6">Start shopping to see your orders here!</p>
+            <Link href="/store" className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">Browse Products</Link>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {orders.map((order) => (
+              <div key={order.id} className="border border-primary p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <p className="font-bold">Order #{order.id.slice(0, 8)}</p>
+                    <p className="text-sm opacity-70">{new Date(order.createdAt).toLocaleDateString()}</p>
+                  </div>
+                  <span className={`px-3 py-1 text-white text-sm ${getStatusColor(order.status)}`}>{order.status}</span>
+                </div>
+                <div className="space-y-4">
+                  {order.items.map((item, index) => (
+                    <div key={index} className="flex gap-4">
+                      <div className="relative w-16 h-16 flex-shrink-0">
+                        <Image src={item.image || "/placeholder.jpg"} alt={item.name || "Product"} fill className="object-cover" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-sm">{item.name}</p>
+                        <p className="text-sm opacity-70">Qty: {item.quantity}</p>
+                      </div>
+                      <p className="font-bold">${(item.price || 0) * item.quantity}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="border-t border-primary mt-4 pt-4 flex justify-between font-bold">
+                  <span>Total</span>
+                  <span>${order.totalPrice}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
 
-        <main className="hidden md:block md:pl-72 flex-1 p-6">
+      <div className="hidden md:flex">
+        <UserSidebar activePage="orders" />
+        <main className="md:pl-72 flex-1 p-6 pt-[89px]">
           {orders.length === 0 ? (
             <div className="border border-primary p-8 text-center">
               <p className="opacity-70 mb-4">You have no orders yet.</p>
-              <p className="text-sm opacity-50 mb-6">
-                Start shopping to see your orders here!
-              </p>
-              <Link
-                href="/store"
-                className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition"
-              >
-                Browse Products
-              </Link>
+              <p className="text-sm opacity-50 mb-6">Start shopping to see your orders here!</p>
+              <Link href="/store" className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">Browse Products</Link>
             </div>
           ) : (
             <div className="space-y-6">
@@ -112,43 +149,24 @@ export default function OrdersPage() {
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <p className="font-bold">Order #{order.id.slice(0, 8)}</p>
-                      <p className="text-sm opacity-70">
-                        {new Date(order.createdAt).toLocaleDateString()}
-                      </p>
+                      <p className="text-sm opacity-70">{new Date(order.createdAt).toLocaleDateString()}</p>
                     </div>
-                    <span
-                      className={`px-3 py-1 text-white text-sm ${getStatusColor(
-                        order.status,
-                      )}`}
-                    >
-                      {order.status}
-                    </span>
+                    <span className={`px-3 py-1 text-white text-sm ${getStatusColor(order.status)}`}>{order.status}</span>
                   </div>
-
                   <div className="space-y-4">
                     {order.items.map((item, index) => (
                       <div key={index} className="flex gap-4">
                         <div className="relative w-16 h-16 flex-shrink-0">
-                          <Image
-                            src={item.image || "/placeholder.jpg"}
-                            alt={item.name || "Product"}
-                            fill
-                            className="object-cover"
-                          />
+                          <Image src={item.image || "/placeholder.jpg"} alt={item.name || "Product"} fill className="object-cover" />
                         </div>
                         <div className="flex-1">
                           <p className="font-bold text-sm">{item.name}</p>
-                          <p className="text-sm opacity-70">
-                            Qty: {item.quantity}
-                          </p>
+                          <p className="text-sm opacity-70">Qty: {item.quantity}</p>
                         </div>
-                        <p className="font-bold">
-                          ${(item.price || 0) * item.quantity}
-                        </p>
+                        <p className="font-bold">${(item.price || 0) * item.quantity}</p>
                       </div>
                     ))}
                   </div>
-
                   <div className="border-t border-primary mt-4 pt-4 flex justify-between font-bold">
                     <span>Total</span>
                     <span>${order.totalPrice}</span>

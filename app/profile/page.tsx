@@ -115,9 +115,12 @@ export default function ProfilePage() {
         <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
           <span className="font-bold text-2xl">My Profile</span>
         </div>
-        <div className="flex">
+        <main className="md:hidden p-6 pt-4">
+          <ProfileSkeleton />
+        </main>
+        <div className="hidden md:flex">
           <UserSidebar activePage="profile" />
-          <main className="hidden md:block md:pl-72 flex-1 p-6">
+          <main className="md:pl-72 flex-1 p-6 pt-[89px]">
             <ProfileSkeleton />
           </main>
         </div>
@@ -133,167 +136,125 @@ export default function ProfilePage() {
         <span className="font-bold text-2xl">My Profile</span>
       </div>
 
-      <div className="flex">
-        <UserSidebar activePage="profile" />
+      <main className="md:hidden p-6 pt-4">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <section className="border border-primary p-6">
+            <h2 className="font-bold text-lg mb-4">Personal Information</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Email</label>
+                <input type="email" value={user?.email || ""} disabled className="w-full px-4 py-2 border border-primary bg-gray-100 text-gray-500 cursor-not-allowed" />
+                <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Name</label>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Phone</label>
+                <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Avatar URL</label>
+                <input type="url" value={avatarUrl} onChange={(e) => setAvatarUrl(e.target.value)} placeholder="https://example.com/avatar.jpg" className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+                {avatarUrl && <div className="mt-2"><img src={avatarUrl} alt="Avatar preview" className="w-16 h-16 rounded-full object-cover border border-primary" /></div>}
+              </div>
+            </div>
+          </section>
 
-        <main className="hidden md:block md:pl-72 flex-1 p-6">
+          <section className="border border-primary p-6">
+            <h2 className="font-bold text-lg mb-4">Shipping Address</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium mb-1">Street</label>
+                <input type="text" value={address.street} onChange={(e) => setAddress({ ...address, street: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">City</label>
+                <input type="text" value={address.city} onChange={(e) => setAddress({ ...address, city: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">State / Province</label>
+                <input type="text" value={address.state} onChange={(e) => setAddress({ ...address, state: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Postal Code</label>
+                <input type="text" value={address.postalCode} onChange={(e) => setAddress({ ...address, postalCode: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Country</label>
+                <input type="text" value={address.country} onChange={(e) => setAddress({ ...address, country: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+              </div>
+            </div>
+          </section>
+
+          {error && <div className="p-4 bg-red-50 border border-red-200 text-red-600">{error}</div>}
+          {success && <div className="p-4 bg-green-50 border border-green-200 text-green-600">Profile updated successfully!</div>}
+
+          <button type="submit" disabled={saving} className="w-full md:w-auto px-8 py-3 bg-primary text-background font-bold hover:opacity-90 transition disabled:opacity-50">
+            {saving ? "Saving..." : "Save Changes"}
+          </button>
+        </form>
+      </main>
+
+      <div className="hidden md:flex">
+        <UserSidebar activePage="profile" />
+        <main className="md:pl-72 flex-1 p-6 pt-[89px]">
           <form onSubmit={handleSubmit} className="space-y-8">
             <section className="border border-primary p-6">
               <h2 className="font-bold text-lg mb-4">Personal Information</h2>
-
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={user?.email || ""}
-                    disabled
-                    className="w-full px-4 py-2 border border-primary bg-gray-100 text-gray-500 cursor-not-allowed"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Email cannot be changed
-                  </p>
+                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <input type="email" value={user?.email || ""} disabled className="w-full px-4 py-2 border border-primary bg-gray-100 text-gray-500 cursor-not-allowed" />
+                  <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium mb-1">Name</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <label className="block text-sm font-medium mb-1">Phone</label>
+                  <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Avatar URL
-                  </label>
-                  <input
-                    type="url"
-                    value={avatarUrl}
-                    onChange={(e) => setAvatarUrl(e.target.value)}
-                    placeholder="https://example.com/avatar.jpg"
-                    className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  {avatarUrl && (
-                    <div className="mt-2">
-                      <img
-                        src={avatarUrl}
-                        alt="Avatar preview"
-                        className="w-16 h-16 rounded-full object-cover border border-primary"
-                      />
-                    </div>
-                  )}
+                  <label className="block text-sm font-medium mb-1">Avatar URL</label>
+                  <input type="url" value={avatarUrl} onChange={(e) => setAvatarUrl(e.target.value)} placeholder="https://example.com/avatar.jpg" className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+                  {avatarUrl && <div className="mt-2"><img src={avatarUrl} alt="Avatar preview" className="w-16 h-16 rounded-full object-cover border border-primary" /></div>}
                 </div>
               </div>
             </section>
 
             <section className="border border-primary p-6">
               <h2 className="font-bold text-lg mb-4">Shipping Address</h2>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium mb-1">
-                    Street
-                  </label>
-                  <input
-                    type="text"
-                    value={address.street}
-                    onChange={(e) =>
-                      setAddress({ ...address, street: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <label className="block text-sm font-medium mb-1">Street</label>
+                  <input type="text" value={address.street} onChange={(e) => setAddress({ ...address, street: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium mb-1">City</label>
-                  <input
-                    type="text"
-                    value={address.city}
-                    onChange={(e) =>
-                      setAddress({ ...address, city: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <input type="text" value={address.city} onChange={(e) => setAddress({ ...address, city: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    State / Province
-                  </label>
-                  <input
-                    type="text"
-                    value={address.state}
-                    onChange={(e) =>
-                      setAddress({ ...address, state: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <label className="block text-sm font-medium mb-1">State / Province</label>
+                  <input type="text" value={address.state} onChange={(e) => setAddress({ ...address, state: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Postal Code
-                  </label>
-                  <input
-                    type="text"
-                    value={address.postalCode}
-                    onChange={(e) =>
-                      setAddress({ ...address, postalCode: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <label className="block text-sm font-medium mb-1">Postal Code</label>
+                  <input type="text" value={address.postalCode} onChange={(e) => setAddress({ ...address, postalCode: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Country
-                  </label>
-                  <input
-                    type="text"
-                    value={address.country}
-                    onChange={(e) =>
-                      setAddress({ ...address, country: e.target.value })
-                    }
-                    className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <label className="block text-sm font-medium mb-1">Country</label>
+                  <input type="text" value={address.country} onChange={(e) => setAddress({ ...address, country: e.target.value })} className="w-full px-4 py-2 border border-primary focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
               </div>
             </section>
 
-            {error && (
-              <div className="p-4 bg-red-50 border border-red-200 text-red-600">
-                {error}
-              </div>
-            )}
+            {error && <div className="p-4 bg-red-50 border border-red-200 text-red-600">{error}</div>}
+            {success && <div className="p-4 bg-green-50 border border-green-200 text-green-600">Profile updated successfully!</div>}
 
-            {success && (
-              <div className="p-4 bg-green-50 border border-green-200 text-green-600">
-                Profile updated successfully!
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={saving}
-              className="w-full md:w-auto px-8 py-3 bg-primary text-background font-bold hover:opacity-90 transition disabled:opacity-50"
-            >
+            <button type="submit" disabled={saving} className="w-full md:w-auto px-8 py-3 bg-primary text-background font-bold hover:opacity-90 transition disabled:opacity-50">
               {saving ? "Saving..." : "Save Changes"}
             </button>
           </form>

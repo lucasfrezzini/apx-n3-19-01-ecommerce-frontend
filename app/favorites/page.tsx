@@ -77,9 +77,12 @@ export default function FavoritesPage() {
         <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
           <span className="font-bold text-2xl">My Favorites</span>
         </div>
-        <div className="flex">
+        <main className="md:hidden p-6 pt-4">
+          <FavoritesListSkeleton />
+        </main>
+        <div className="hidden md:flex">
           <UserSidebar activePage="favorites" />
-          <main className="hidden md:block md:pl-72 flex-1 p-6">
+          <main className="md:pl-72 flex-1 p-6 pt-[89px]">
             <FavoritesListSkeleton />
           </main>
         </div>
@@ -95,37 +98,52 @@ export default function FavoritesPage() {
         <span className="font-bold text-2xl">My Favorites</span>
       </div>
 
-      <div className="flex">
-        <UserSidebar activePage="favorites" />
+      <main className="md:hidden p-6 pt-4">
+        {products.length === 0 ? (
+          <div className="border border-primary p-8 text-center">
+            <p className="opacity-70 mb-4">You have no favorites yet.</p>
+            <p className="text-sm opacity-50 mb-6">Start adding some products to your favorites!</p>
+            <Link href="/store" className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">Browse Products</Link>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {products.map((product) => (
+              <FavoriteItem
+                key={product.id}
+                id={product.id}
+                imageSrc={product.images?.product?.[0] || "/placeholder.jpg"}
+                title={product.name}
+                price={product.price}
+                category={product.category}
+              />
+            ))}
+          </div>
+        )}
+      </main>
 
-        <main className="hidden md:block md:pl-72 flex-1 p-6">
+      <div className="hidden md:flex">
+        <UserSidebar activePage="favorites" />
+        <main className="md:pl-72 flex-1 p-6 pt-[89px]">
           {products.length === 0 ? (
             <div className="border border-primary p-8 text-center">
               <p className="opacity-70 mb-4">You have no favorites yet.</p>
-              <p className="text-sm opacity-50 mb-6">
-                Start adding some products to your favorites!
-              </p>
-              <Link
-                href="/store"
-                className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition"
-              >
-                Browse Products
-              </Link>
+              <p className="text-sm opacity-50 mb-6">Start adding some products to your favorites!</p>
+              <Link href="/store" className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">Browse Products</Link>
             </div>
-           ) : (
-              <div className="space-y-4">
-                {products.map((product) => (
-                  <FavoriteItem
-                    key={product.id}
-                    id={product.id}
-                    imageSrc={product.images?.product?.[0] || "/placeholder.jpg"}
-                    title={product.name}
-                    price={product.price}
-                    category={product.category}
-                  />
-                ))}
-              </div>
-           )}
+          ) : (
+            <div className="space-y-4">
+              {products.map((product) => (
+                <FavoriteItem
+                  key={product.id}
+                  id={product.id}
+                  imageSrc={product.images?.product?.[0] || "/placeholder.jpg"}
+                  title={product.name}
+                  price={product.price}
+                  category={product.category}
+                />
+              ))}
+            </div>
+          )}
         </main>
       </div>
     </div>
