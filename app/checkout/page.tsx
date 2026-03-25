@@ -9,6 +9,7 @@ import { createOrder, ShippingAddress } from "@/src/lib/api/orders";
 import Button from "@/src/ui/Button";
 import Image from "next/image";
 import UserSidebar from "@/src/ui/user/UserSidebar";
+import CheckoutSkeleton from "@/src/ui/CheckoutSkeleton";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -102,129 +103,154 @@ export default function CheckoutPage() {
     }
   };
 
+  const renderCheckoutContent = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="border border-primary p-6">
+        <h2 className="font-bold text-lg mb-4">Shipping Address</h2>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-bold mb-1">Street</label>
+            <input
+              type="text"
+              value={address.street}
+              onChange={(e) => handleInputChange("street", e.target.value)}
+              className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
+              placeholder="Street address"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold mb-1">City</label>
+            <input
+              type="text"
+              value={address.city}
+              onChange={(e) => handleInputChange("city", e.target.value)}
+              className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
+              placeholder="City"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold mb-1">State</label>
+            <input
+              type="text"
+              value={address.state}
+              onChange={(e) => handleInputChange("state", e.target.value)}
+              className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
+              placeholder="State"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-bold mb-1">Postal Code</label>
+              <input
+                type="text"
+                value={address.postalCode}
+                onChange={(e) => handleInputChange("postalCode", e.target.value)}
+                className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
+                placeholder="Postal code"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-bold mb-1">Country</label>
+              <input
+                type="text"
+                value={address.country}
+                onChange={(e) => handleInputChange("country", e.target.value)}
+                className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
+                placeholder="Country"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="border border-primary p-6">
+        <h2 className="font-bold text-lg mb-4">Order Summary</h2>
+        <div className="space-y-4 mb-6">
+          {cart.map((item) => (
+            <div key={item.id} className="flex gap-4">
+              <div className="relative w-16 h-16 flex-shrink-0">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="font-bold text-sm">{item.name}</p>
+                <p className="text-sm opacity-70">Qty: {item.quantity}</p>
+              </div>
+              <p className="font-bold">${item.price * item.quantity}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-t border-primary pt-4">
+          <div className="flex justify-between items-center text-lg font-bold">
+            <span>Total</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
+        </div>
+
+        {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+
+        <Button
+          onClick={handlePlaceOrder}
+          disabled={loading || cart.length === 0}
+          className="w-full mt-6"
+        >
+          {loading ? "Processing..." : "Place Order"}
+        </Button>
+      </div>
+    </div>
+  );
+
+  const renderEmptyCart = () => (
+    <div className="border border-primary p-8 text-center">
+      <p className="opacity-70 mb-4">Your cart is empty.</p>
+      <p className="text-sm opacity-50 mb-6">Add some products to your cart first!</p>
+      <Link href="/store" className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">
+        Browse Products
+      </Link>
+    </div>
+  );
+
   if (authLoading) {
-    return null;
+    return (
+      <div className="mt-[49px]">
+        <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">Checkout</h1>
+        <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+          <span className="font-bold text-2xl">Checkout</span>
+        </div>
+        <main className="md:hidden p-6 pt-4">
+          <CheckoutSkeleton />
+        </main>
+        <div className="hidden md:flex">
+          <UserSidebar activePage="checkout" />
+          <main className="md:pl-72 flex-1 p-6 pt-[89px]">
+            <CheckoutSkeleton />
+          </main>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-[49px]">
-      <h1 className="font-bold text-2xl mb-8">Checkout</h1>
+    <div className="mt-[49px]">
+      <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">Checkout</h1>
+      
+      <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+        <span className="font-bold text-2xl">Checkout</span>
+      </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
+      <main className="md:hidden p-6 pt-4">
+        {cart.length === 0 ? renderEmptyCart() : renderCheckoutContent()}
+      </main>
+
+      <div className="hidden md:flex">
         <UserSidebar activePage="checkout" />
-
-        <main className="flex-1">
-          {cart.length === 0 ? (
-            <div className="border border-primary p-8 text-center">
-              <p className="opacity-70 mb-4">Your cart is empty.</p>
-              <p className="text-sm opacity-50 mb-6">Add some products to your cart first!</p>
-              <Link href="/store" className="inline-block px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">
-                Browse Products
-              </Link>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Shipping Address */}
-              <div>
-                <h2 className="font-bold text-lg mb-4">Shipping Address</h2>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-bold mb-1">Street</label>
-                    <input
-                      type="text"
-                      value={address.street}
-                      onChange={(e) => handleInputChange("street", e.target.value)}
-                      className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
-                      placeholder="Street address"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold mb-1">City</label>
-                    <input
-                      type="text"
-                      value={address.city}
-                      onChange={(e) => handleInputChange("city", e.target.value)}
-                      className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
-                      placeholder="City"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold mb-1">State</label>
-                    <input
-                      type="text"
-                      value={address.state}
-                      onChange={(e) => handleInputChange("state", e.target.value)}
-                      className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
-                      placeholder="State"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-bold mb-1">Postal Code</label>
-                      <input
-                        type="text"
-                        value={address.postalCode}
-                        onChange={(e) => handleInputChange("postalCode", e.target.value)}
-                        className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
-                        placeholder="Postal code"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold mb-1">Country</label>
-                      <input
-                        type="text"
-                        value={address.country}
-                        onChange={(e) => handleInputChange("country", e.target.value)}
-                        className="w-full border-b border-primary py-2 px-0 bg-transparent outline-none"
-                        placeholder="Country"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Order Summary */}
-              <div>
-                <h2 className="font-bold text-lg mb-4">Order Summary</h2>
-                <div className="space-y-4 mb-6">
-                  {cart.map((item) => (
-                    <div key={item.id} className="flex gap-4">
-                      <div className="relative w-16 h-16 flex-shrink-0">
-                        <Image
-                          src={item.image}
-                          alt={item.name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-bold text-sm">{item.name}</p>
-                        <p className="text-sm opacity-70">Qty: {item.quantity}</p>
-                      </div>
-                      <p className="font-bold">${item.price * item.quantity}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="border-t border-primary pt-4">
-                  <div className="flex justify-between items-center text-lg font-bold">
-                    <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
-                  </div>
-                </div>
-
-                {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
-
-                <Button
-                  onClick={handlePlaceOrder}
-                  disabled={loading || cart.length === 0}
-                  className="w-full mt-6"
-                >
-                  {loading ? "Processing..." : "Place Order"}
-                </Button>
-              </div>
-            </div>
-          )}
+        <main className="md:pl-72 flex-1 p-6 pt-[89px]">
+          {cart.length === 0 ? renderEmptyCart() : renderCheckoutContent()}
         </main>
       </div>
     </div>
