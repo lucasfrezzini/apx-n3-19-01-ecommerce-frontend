@@ -7,6 +7,7 @@ import { getMyOrders } from "@/src/lib/api/orders";
 import { Order } from "../../apiClient";
 import Image from "next/image";
 import UserSidebar from "@/src/ui/user/UserSidebar";
+import OrdersSkeleton from "@/src/ui/OrdersSkeleton";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -62,7 +63,11 @@ export default function OrdersPage() {
     }
   };
 
-  if (loading || authLoading) {
+  if (authLoading) {
+    return <OrdersSkeleton />;
+  }
+
+  if (loading) {
     return null;
   }
 

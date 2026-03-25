@@ -9,6 +9,7 @@ import {
 } from "@/src/store/favoritesAtom";
 import { apiClient, Product } from "../../apiClient";
 import UserSidebar from "@/src/ui/user/UserSidebar";
+import FavoritesSkeleton from "@/src/ui/FavoritesSkeleton";
 import FavoriteItem from "@/src/ui/user/FavoriteItem";
 import Link from "next/link";
 
@@ -20,6 +21,14 @@ export default function FavoritesPage() {
   const [, hydrateFavorites] = useAtom(hydrateFavoritesAtom);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAuthLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     hydrateFavorites();
@@ -55,31 +64,18 @@ export default function FavoritesPage() {
     };
 
     fetchProducts();
-  }, [favorites]);
+  }, [favorites, authLoading]);
 
   const handleToggleFavorite = (productId: string) => {
     toggleFavorite(productId);
   };
 
+  if (authLoading) {
+    return <FavoritesSkeleton />;
+  }
+
   if (loading) {
-    return (
-      <div className="max-w-4xl mx-auto p-6 mt-[49px]">
-        <h1 className="font-bold text-2xl mb-8">My Favorites</h1>
-        <div className="flex flex-col md:flex-row gap-8">
-          <UserSidebar activePage="favorites" />
-          <main className="flex-1">
-            <div className="animate-pulse space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="h-32 bg-gray-200 border border-primary"
-                ></div>
-              ))}
-            </div>
-          </main>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
