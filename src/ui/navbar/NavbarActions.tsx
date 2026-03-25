@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import {
   openMenuAtom,
   openCartAtom,
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export default function NavbarActions({ variant }: Props) {
+  const router = useRouter();
   const [, openMenu] = useAtom(openMenuAtom);
   const [, openCart] = useAtom(openCartAtom);
   const [, openSearch] = useAtom(openSearchAtom);
@@ -53,6 +55,7 @@ export default function NavbarActions({ variant }: Props) {
   const handleLogout = () => {
     setDropdownOpen(false);
     logout();
+    router.push("/");
   };
 
   if (variant === "menu") {

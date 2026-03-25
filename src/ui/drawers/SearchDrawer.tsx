@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
 
@@ -10,6 +10,16 @@ export default function SearchDrawer() {
   const [, closeDrawer] = useAtom(closeDrawerAtom);
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (drawer === "search" && inputRef.current) {
+      const timer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [drawer]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -53,7 +63,7 @@ export default function SearchDrawer() {
 
         <form onSubmit={handleSubmit} className="flex gap-4">
           <input
-            autoFocus
+            ref={inputRef}
             placeholder="Search products..."
             className="flex-1 border-b border-primary py-4 text-2xl bg-transparent outline-none"
             value={inputValue}

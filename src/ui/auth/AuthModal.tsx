@@ -47,51 +47,41 @@ function AuthModal() {
   const isOpen = drawer === "auth";
 
   return (
-    <>
-      <div
-        onClick={handleClose}
-        className={`
-          fixed inset-0 z-[65] bg-black/40 backdrop-blur-sm
-          transition-opacity duration-300
-          ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
-        `}
-      />
-      <aside
-        className={`
-          fixed z-[70] right-0 w-full max-w-md h-screen
-          bg-background border-l border-primary
-          transform transition-transform duration-300
-          ${isOpen ? "translate-x-0" : "translate-x-full"}
-        `}
-      >
-        <div className="flex flex-col h-full">
-          <div className="flex justify-between items-center p-[30px] border-b border-primary">
-            <h2 className="font-bold text-xl">Login</h2>
-            <button
-              onClick={handleClose}
-              className="text-2xl hover:opacity-60 transition-opacity"
-            >
-              ×
-            </button>
-          </div>
-
-          <div className="flex-1 p-[30px] overflow-y-auto">
-            {step === "login" ? (
-              <LoginForm
-                onSwitchToVerify={handleSwitchToVerify}
-                onSuccess={handleSuccess}
-              />
-            ) : (
-              <VerifyCodeForm
-                email={email}
-                onBack={handleBack}
-                onSuccess={handleSuccess}
-              />
-            )}
-          </div>
+    <aside
+      className={`
+        fixed z-[70] right-0 w-full max-w-md h-screen
+        bg-background/80 backdrop-blur-xl border-l border-primary
+        transform transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "translate-x-full"}
+      `}
+    >
+      <div className="flex flex-col h-full">
+        <div className="flex justify-between items-center p-[30px] border-b border-primary">
+          <h2 className="font-bold text-xl">Login</h2>
+          <button
+            onClick={handleClose}
+            className="text-2xl hover:opacity-60 transition-opacity"
+          >
+            ×
+          </button>
         </div>
-      </aside>
-    </>
+
+        <div className="flex-1 p-[30px] overflow-y-auto">
+          {step === "login" ? (
+            <LoginForm
+              onSwitchToVerify={handleSwitchToVerify}
+              onSuccess={handleSuccess}
+            />
+          ) : (
+            <VerifyCodeForm
+              email={email}
+              onBack={handleBack}
+              onSuccess={handleSuccess}
+            />
+          )}
+        </div>
+      </div>
+    </aside>
   );
 }
 
