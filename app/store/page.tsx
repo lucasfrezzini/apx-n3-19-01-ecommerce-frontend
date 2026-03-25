@@ -9,13 +9,13 @@ export default function StorePage() {
   const { products, loading, loadingMore, hasMore, loadMore } = useProducts();
 
   if (loading) {
-    return <ProductGridSkeleton />;
+    return <ProductGridSkeleton className="mt-[230px] lg:mt-[246px]" />;
   }
 
   return (
     <>
       <ProductGrid products={products} className="mt-[230px] lg:mt-[246px]" />
-      {loadingMore && <ProductGridSkeleton />}
+      {loadingMore && <ProductGridSkeleton className="mt-[230px] lg:mt-[246px]" />}
       {hasMore && !loadingMore && (
         <div className="flex justify-center py-10 border-b border-primary">
           <Button onClick={loadMore}>See more products</Button>

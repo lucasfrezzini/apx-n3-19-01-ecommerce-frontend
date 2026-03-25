@@ -14,7 +14,7 @@ export default function CategoryPage() {
   });
 
   if (loading) {
-    return <ProductGridSkeleton />;
+    return <ProductGridSkeleton className="mt-[230px] lg:mt-[246px]" />;
   }
 
   if (!products || products.length === 0) {
@@ -28,7 +28,7 @@ export default function CategoryPage() {
   return (
     <>
       <ProductGrid products={products} className="mt-[230px] lg:mt-[246px]" />
-      {loadingMore && <ProductGridSkeleton />}
+      {loadingMore && <ProductGridSkeleton className="mt-[230px] lg:mt-[246px]" />}
       {hasMore && !loadingMore && (
         <div className="flex justify-center py-10 border-b border-primary">
           <Button onClick={loadMore}>See more products</Button>
