@@ -69,12 +69,15 @@ export default function SearchResults() {
         limit: PRODUCTS_PER_PAGE,
         offset: 0,
       });
-      const normalized = data.results.map((p: unknown) => 
-        normalizeProduct(p as AlgoliaProduct)
+      const normalized = data.results.map((p: unknown) =>
+        normalizeProduct(p as AlgoliaProduct),
       );
       setProducts(normalized);
       setTotal(data.total);
-      setHasMore(data.results.length === PRODUCTS_PER_PAGE && data.page < data.totalPages);
+      setHasMore(
+        data.results.length === PRODUCTS_PER_PAGE &&
+          data.page < data.totalPages,
+      );
     } catch (err) {
       console.error("Search failed:", err);
     } finally {
@@ -100,10 +103,13 @@ export default function SearchResults() {
         offset: (nextPage - 1) * PRODUCTS_PER_PAGE,
       }).then((data) => {
         const normalized = data.results.map((p: unknown) =>
-          normalizeProduct(p as AlgoliaProduct)
+          normalizeProduct(p as AlgoliaProduct),
         );
         setProducts((prev) => [...prev, ...normalized]);
-        setHasMore(data.results.length === PRODUCTS_PER_PAGE && data.page < data.totalPages);
+        setHasMore(
+          data.results.length === PRODUCTS_PER_PAGE &&
+            data.page < data.totalPages,
+        );
         setLoadingMore(false);
       });
     }
@@ -141,7 +147,7 @@ export default function SearchResults() {
       </div>
 
       {products.length === 0 ? (
-        <div className="border border-primary p-8 text-center min-h-[50vh] flex flex-col items-center justify-center">
+        <div className="border-b border-primary p-8 text-center">
           <p className="opacity-70 mb-4">No products found for "{q}"</p>
           <p className="text-sm opacity-50">Try a different search term</p>
         </div>
