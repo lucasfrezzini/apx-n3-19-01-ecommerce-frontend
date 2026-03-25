@@ -1,6 +1,6 @@
 "use client";
 
-import ProductGrid from "@/src/components/GridProducts";
+import ProductGrid from "@/src/components/ProductGrid";
 import { useProducts } from "@/src/hooks/useProducts";
 import ProductGridSkeleton from "@/src/ui/ProductGridSkeleton";
 import Button from "@/src/ui/Button";
@@ -14,7 +14,7 @@ export default function StorePage() {
 
   return (
     <>
-      <ProductGrid products={products} />
+      <ProductGrid products={products} className="mt-[230px] lg:mt-[246px]" />
       {loadingMore && <ProductGridSkeleton />}
       {hasMore && !loadingMore && (
         <div className="flex justify-center py-10 border-b border-primary">
