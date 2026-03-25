@@ -72,19 +72,8 @@ const FavoriteItem: React.FC<FavoriteItemProps> = ({
             className="p-2 hover:text-red-500 transition"
             aria-label="Remove from favorites"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a2.25 2.25 0 00-2.244-2.077L4.772 5.79m-8.486 0a2.25 2.25 0 00-2.244 2.077L4.772 5.79"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7.5l-1 11.5H6.5L5.5 7.5m14 0l-1-11.5m-9 0h.01M9 7.5v11.5m4.5-11.5v11.5" />
             </svg>
           </button>
         </div>
