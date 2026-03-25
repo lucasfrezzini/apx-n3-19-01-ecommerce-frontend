@@ -141,7 +141,7 @@ export default function SearchResults() {
       </div>
 
       {products.length === 0 ? (
-        <div className="border border-primary p-8 text-center">
+        <div className="border border-primary p-8 text-center min-h-[50vh] flex flex-col items-center justify-center">
           <p className="opacity-70 mb-4">No products found for "{q}"</p>
           <p className="text-sm opacity-50">Try a different search term</p>
         </div>

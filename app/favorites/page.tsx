@@ -91,7 +91,7 @@ export default function FavoritesPage() {
 
         <main className="flex-1">
           {products.length === 0 ? (
-            <div className="border border-primary p-8 text-center">
+            <div className="border border-primary p-8 text-center min-h-[50vh] flex flex-col items-center justify-center">
               <p className="opacity-70 mb-4">You have no favorites yet.</p>
               <p className="text-sm opacity-50 mb-6">
                 Start adding some products to your favorites!

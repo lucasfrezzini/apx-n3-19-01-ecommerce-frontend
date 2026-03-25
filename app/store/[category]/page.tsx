@@ -19,7 +19,7 @@ export default function CategoryPage() {
 
   if (!products || products.length === 0) {
     return (
-      <div className="border border-primary p-8 text-center">
+      <div className="border border-primary p-8 text-center min-h-[50vh] flex items-center justify-center">
         <p className="opacity-70">No products found in this category.</p>
       </div>
     );
