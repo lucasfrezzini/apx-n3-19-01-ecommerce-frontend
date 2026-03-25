@@ -43,7 +43,7 @@ export default function MenuDrawer() {
 
         <Link
           onClick={closeDrawer}
-          href="/details"
+          href="/store"
           className="
 						flex items-center justify-between
 						w-full px-[30px] py-3
@@ -51,13 +51,27 @@ export default function MenuDrawer() {
 						transition-colors duration-300
 					"
         >
-          <span className="font-bold">Details</span>
+          <span className="font-bold">Shop</span>
           <ArrowRight />
         </Link>
 
         <Link
           onClick={closeDrawer}
-          href="/styleguide"
+          href="/about"
+          className="
+						flex items-center justify-between
+						w-full px-[30px] py-3
+						hover:bg-foreground
+						transition-colors duration-300
+					"
+        >
+          <span className="font-bold">About</span>
+          <ArrowRight />
+        </Link>
+
+        <Link
+          onClick={closeDrawer}
+          href="/contact"
           className="
 						flex items-center justify-between
 						w-full px-[30px] py-3 border-b
@@ -65,7 +79,7 @@ export default function MenuDrawer() {
 						transition-colors duration-300
 					"
         >
-          <span className="font-bold">Styleguide</span>
+          <span className="font-bold">Contact</span>
           <ArrowRight />
         </Link>
       </nav>
