@@ -10,14 +10,20 @@ export default function NavbarLinks() {
       </li>
 
       <li>
-        <Link href="/details" className="hover:text-primary/70 transition">
-          Details
+        <Link href="/store" className="hover:text-primary/70 transition">
+          Shop
         </Link>
       </li>
 
       <li>
-        <Link href="/store" className="hover:text-primary/70 transition">
-          Store
+        <Link href="/about" className="hover:text-primary/70 transition">
+          About
+        </Link>
+      </li>
+
+      <li>
+        <Link href="/contact" className="hover:text-primary/70 transition">
+          Contact
         </Link>
       </li>
     </ul>

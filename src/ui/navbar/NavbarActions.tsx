@@ -31,7 +31,10 @@ export default function NavbarActions({ variant }: Props) {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     };
@@ -65,70 +68,7 @@ export default function NavbarActions({ variant }: Props) {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="relative" ref={dropdownRef}>
-        <button
-          onClick={handleUserClick}
-          className="relative"
-          aria-label={user ? "Account" : "Login"}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-            />
-          </svg>
-        </button>
-
-        {dropdownOpen && user && (
-          <div className="absolute right-0 mt-2 w-56 bg-background border border-primary shadow-lg z-50">
-            <div className="p-4 border-b border-primary">
-              <p className="font-bold text-sm truncate">{user.name || "User"}</p>
-              <p className="text-xs text-gray-500 truncate">{user.email}</p>
-            </div>
-            <div className="py-2">
-              <Link
-                href="/profile"
-                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
-                onClick={() => setDropdownOpen(false)}
-              >
-                My Profile
-              </Link>
-              <Link
-                href="/orders"
-                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
-                onClick={() => setDropdownOpen(false)}
-              >
-                My Orders
-              </Link>
-              <Link
-                href="/favorites"
-                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
-                onClick={() => setDropdownOpen(false)}
-              >
-                My Favorites
-              </Link>
-            </div>
-            <div className="border-t border-primary py-2">
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-primary/10 transition-colors"
-              >
-                Sign Out
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
+    <div className="flex items-center gap-6">
       <button onClick={openSearch} aria-label="Search">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -168,6 +108,71 @@ export default function NavbarActions({ variant }: Props) {
           </span>
         )}
       </button>
+
+      <div className="relative size-6" ref={dropdownRef}>
+        <button
+          onClick={handleUserClick}
+          className="relative"
+          aria-label={user ? "Account" : "Login"}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+            />
+          </svg>
+        </button>
+
+        {dropdownOpen && user && (
+          <div className="absolute right-0 mt-2 w-56 bg-background border border-primary shadow-lg z-50">
+            <div className="p-4 border-b border-primary">
+              <p className="font-bold text-sm truncate">
+                {user.name || "User"}
+              </p>
+              <p className="text-xs text-gray-500 truncate">{user.email}</p>
+            </div>
+            <div className="py-2">
+              <Link
+                href="/profile"
+                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                onClick={() => setDropdownOpen(false)}
+              >
+                My Profile
+              </Link>
+              <Link
+                href="/orders"
+                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                onClick={() => setDropdownOpen(false)}
+              >
+                My Orders
+              </Link>
+              <Link
+                href="/favorites"
+                className="block px-4 py-2 text-sm hover:bg-primary/10 transition-colors"
+                onClick={() => setDropdownOpen(false)}
+              >
+                My Favorites
+              </Link>
+            </div>
+            <div className="border-t border-primary py-2">
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-primary/10 transition-colors"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
