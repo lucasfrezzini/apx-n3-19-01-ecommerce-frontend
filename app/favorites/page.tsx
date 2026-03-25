@@ -9,7 +9,7 @@ import {
 } from "@/src/store/favoritesAtom";
 import { apiClient, Product } from "../../apiClient";
 import UserSidebar from "@/src/ui/user/UserSidebar";
-import FavoritesSkeleton from "@/src/ui/FavoritesSkeleton";
+import FavoritesListSkeleton from "@/src/ui/FavoritesListSkeleton";
 import FavoriteItem from "@/src/ui/user/FavoriteItem";
 import Link from "next/link";
 
@@ -70,12 +70,16 @@ export default function FavoritesPage() {
     toggleFavorite(productId);
   };
 
-  if (authLoading) {
-    return <FavoritesSkeleton />;
-  }
-
-  if (loading) {
-    return <FavoritesSkeleton />;
+  if (authLoading || loading) {
+    return (
+      <div className="max-w-4xl mx-auto p-6 mt-[49px]">
+        <h1 className="font-bold text-2xl mb-8">My Favorites</h1>
+        <div className="flex flex-col md:flex-row gap-8">
+          <UserSidebar activePage="favorites" />
+          <FavoritesListSkeleton />
+        </div>
+      </div>
+    );
   }
 
   return (
