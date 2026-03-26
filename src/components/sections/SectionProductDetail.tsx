@@ -2,13 +2,13 @@
 
 import { FC, useState } from "react";
 import { useAtom } from "jotai";
-import ProductImageSlider from "../ui/ProductImageSlider";
-import ProductAccordionItem from "../ui/ProductAccordion";
-import Headings from "../ui/Headings";
-import Button from "../ui/Button";
-import GoBack from "../ui/GoBack";
-import { addToCartAtom } from "@/src/store/cartAtoms";
-import { openCartAtom } from "@/src/store/uiAtoms";
+import ProductImageSlider from "../product/ProductImageSlider";
+import ProductAccordionItem from "../product/ProductAccordion";
+import Headings from "../common/Headings";
+import Button from "../common/Button";
+import GoBack from "../common/GoBack";
+import { addToCartAtom } from "@/store/cartAtoms";
+import { openCartAtom } from "@/store/uiAtoms";
 
 function sanitizeHTML(html: string): string {
   const allowedTags = ["p", "br", "b", "i", "em", "strong", "ul", "ol", "li", "h1", "h2", "h3", "h4", "h5", "h6", "span", "a"];

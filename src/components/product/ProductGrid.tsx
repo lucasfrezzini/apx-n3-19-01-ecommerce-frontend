@@ -1,5 +1,5 @@
-import { Product } from "../lib/api/products";
-import ProductCard from "../ui/ProductCard";
+import { Product } from "@/src/lib/api/products";
+import ProductCard from "./ProductCard";
 
 type Props = {
   products: Product[];

@@ -3,9 +3,9 @@
 import { useAtom } from "jotai";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "@/src/ui/Button";
-import { addToCartAtom } from "@/src/store/cartAtoms";
-import { toggleFavoriteAtom } from "@/src/store/favoritesAtom";
+import Button from "@/components/common/Button";
+import { addToCartAtom } from "@/store/cartAtoms";
+import { toggleFavoriteAtom } from "@/store/favoritesAtom";
 
 interface FavoriteItemProps {
   id: string;

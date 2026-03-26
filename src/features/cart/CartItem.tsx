@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { CartItem as Item } from "@/src/store/cartAtoms";
+import { CartItem as Item } from "@/store/cartAtoms";
 import { useAtom } from "jotai";
-import { updateQtyAtom, removeFromCartAtom } from "@/src/store/cartAtoms";
+import { updateQtyAtom, removeFromCartAtom } from "@/store/cartAtoms";
 
 type Props = {
   item: Item;

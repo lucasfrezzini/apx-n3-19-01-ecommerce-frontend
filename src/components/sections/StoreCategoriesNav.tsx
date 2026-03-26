@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Headings from "@/src/ui/Headings";
-import Sparkles from "../icons/Sparkles";
+import Headings from "@/components/common/Headings";
+import Sparkles from "@/src/icons/Sparkles";
 
 const links = [
   { label: "Show All", href: "/store" },

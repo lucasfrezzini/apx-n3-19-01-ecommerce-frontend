@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import SectionHero from "@/src/components/SectionHero";
-import BannerMarquee from "@/src/ui/BannerMarquee";
-import FeaturedProductCard from "@/src/ui/FeatureProductCard";
-import ProductCard from "@/src/ui/ProductCard";
-import ProductGridSkeleton from "@/src/ui/ProductGridSkeleton";
+import SectionHero from "@/components/sections/SectionHero";
+import BannerMarquee from "@/components/common/BannerMarquee";
+import FeaturedProductCard from "@/components/product/FeatureProductCard";
+import ProductCard from "@/components/product/ProductCard";
+import ProductGridSkeleton from "@/components/skeleton/ProductGridSkeleton";
 import { getRandomProducts } from "@/src/lib/api/products";
 import { Product } from "@/src/lib/api/products";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { cartTotalAtom } from "@/src/store/cartAtoms";
+import { cartTotalAtom } from "@/store/cartAtoms";
 
 export default function CartTotal() {
   const [total] = useAtom(cartTotalAtom);

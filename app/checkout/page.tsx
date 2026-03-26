@@ -7,10 +7,10 @@ import { cartAtom, CartItem } from "@/src/store/cartAtoms";
 import { userAtom, tokenAtom } from "@/src/store/authAtoms";
 import { openAuthAtom } from "@/src/store/uiAtoms";
 import { createOrder, ShippingAddress } from "@/src/lib/api/orders";
-import Button from "@/src/ui/Button";
+import Button from "@/components/common/Button";
 import Image from "next/image";
-import UserSidebar from "@/src/ui/user/UserSidebar";
-import CheckoutSkeleton from "@/src/ui/CheckoutSkeleton";
+import UserSidebar from "@/features/user/UserSidebar";
+import CheckoutSkeleton from "@/components/skeleton/CheckoutSkeleton";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";

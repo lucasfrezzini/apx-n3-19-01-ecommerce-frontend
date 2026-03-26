@@ -8,9 +8,9 @@ import {
   openCartAtom,
   openSearchAtom,
   openAuthAtom,
-} from "@/src/store/uiAtoms";
-import { cartCountAtom } from "@/src/store/cartAtoms";
-import { userAtom, logoutAtom, tokenAtom } from "@/src/store/authAtoms";
+} from "@/store/uiAtoms";
+import { cartCountAtom } from "@/store/cartAtoms";
+import { userAtom, logoutAtom, tokenAtom } from "@/store/authAtoms";
 import Link from "next/link";
 
 type Props = {

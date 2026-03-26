@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
+import { drawerAtom, closeDrawerAtom } from "@/store/uiAtoms";
 
 export default function DrawerOverlay() {
   const [drawer] = useAtom(drawerAtom);

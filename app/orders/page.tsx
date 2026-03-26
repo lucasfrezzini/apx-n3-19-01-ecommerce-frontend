@@ -8,8 +8,8 @@ import { openAuthAtom } from "@/src/store/uiAtoms";
 import { getMyOrders } from "@/src/lib/api/orders";
 import { Order } from "../../apiClient";
 import Image from "next/image";
-import UserSidebar from "@/src/ui/user/UserSidebar";
-import OrdersListSkeleton from "@/src/ui/OrdersListSkeleton";
+import UserSidebar from "@/features/user/UserSidebar";
+import OrdersListSkeleton from "@/components/skeleton/OrdersListSkeleton";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";

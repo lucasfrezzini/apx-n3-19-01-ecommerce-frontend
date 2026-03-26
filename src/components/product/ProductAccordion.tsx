@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import ArrowRight from "../icons/ArrowRight";
-import Headings from "./Headings";
+import ArrowRight from "@/src/icons/ArrowRight";
+import Headings from "@/components/common/Headings";
 
 interface Props {
   title: string;

@@ -2,9 +2,9 @@
 
 import { FC } from "react";
 import Link from "next/link";
-import FeaturedProductCard from "../ui/FeatureProductCard";
-import ArrowRight from "../icons/ArrowRight";
-import Headings from "../ui/Headings";
+import FeaturedProductCard from "../product/FeatureProductCard";
+import ArrowRight from "../../icons/ArrowRight";
+import Headings from "../common/Headings";
 
 const categories = [
   { label: "Living Room", href: "/store/livingroom" },

@@ -2,16 +2,16 @@
 
 import { FC } from "react";
 import Image from "next/image";
-import Button from "./Button";
+import Button from "@/components/common/Button";
 import Link from "next/link";
 import { useAtom } from "jotai";
-import { addToCartAtom } from "@/src/store/cartAtoms";
-import { openCartAtom } from "../store/uiAtoms";
+import { addToCartAtom } from "@/store/cartAtoms";
+import { openCartAtom } from "@/store/uiAtoms";
 import {
   favoritesAtom,
   toggleFavoriteAtom,
   hydrateFavoritesAtom,
-} from "@/src/store/favoritesAtom";
+} from "@/store/favoritesAtom";
 
 interface ProductCardProps {
   id: string;

@@ -3,8 +3,8 @@
 import { FC, useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./Button";
-import ArrowRight from "../icons/ArrowRight";
+import Button from "@/components/common/Button";
+import ArrowRight from "@/src/icons/ArrowRight";
 
 interface FeaturedProductCardProps {
   imageSrc: string;

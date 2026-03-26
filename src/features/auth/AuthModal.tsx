@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useAtom } from "jotai";
-import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
-import { hydrateAuthAtom } from "@/src/store/authAtoms";
+import { drawerAtom, closeDrawerAtom } from "@/store/uiAtoms";
+import { hydrateAuthAtom } from "@/store/authAtoms";
 import LoginForm from "./LoginForm";
 import VerifyCodeForm from "./VerifyCodeForm";
 

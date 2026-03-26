@@ -1,6 +1,6 @@
-import SectionProductDetail from "@/src/components/SectionProductDetail";
-import ProductCard from "@/src/ui/ProductCard";
-import BannerMarquee from "@/src/ui/BannerMarquee";
+import SectionProductDetail from "@/components/sections/SectionProductDetail";
+import ProductCard from "@/components/product/ProductCard";
+import BannerMarquee from "@/components/common/BannerMarquee";
 import { getProductById, getProductsByCategory, Product } from "@/src/lib/api/products";
 
 export const dynamic = "force-dynamic";

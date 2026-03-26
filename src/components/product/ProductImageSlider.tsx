@@ -2,7 +2,7 @@
 
 import { FC, useState, useRef } from "react";
 import Image from "next/image";
-import ArrowRight from "../icons/ArrowRight";
+import ArrowRight from "@/src/icons/ArrowRight";
 
 interface Props {
   images: string[];

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useAtom } from "jotai";
-import { verifyCodeAtom, authLoadingAtom } from "@/src/store/authAtoms";
-import Button from "../Button";
+import { verifyCodeAtom, authLoadingAtom } from "@/store/authAtoms";
+import Button from "@/components/common/Button";
 
 interface VerifyCodeFormProps {
   email: string;

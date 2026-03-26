@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
-import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
-import { cartAtom } from "@/src/store/cartAtoms";
+import { drawerAtom, closeDrawerAtom } from "@/store/uiAtoms";
+import { cartAtom } from "@/store/cartAtoms";
 
-import CartList from "../cart/CartList";
-import CartTotal from "../cart/CartTotal";
+import CartList from "@/features/cart/CartList";
+import CartTotal from "@/features/cart/CartTotal";
 
 export default function CartDrawer() {
   const router = useRouter();

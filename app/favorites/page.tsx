@@ -11,9 +11,9 @@ import {
 import { userAtom, tokenAtom } from "@/src/store/authAtoms";
 import { openAuthAtom } from "@/src/store/uiAtoms";
 import { apiClient, Product } from "../../apiClient";
-import UserSidebar from "@/src/ui/user/UserSidebar";
-import FavoritesListSkeleton from "@/src/ui/FavoritesListSkeleton";
-import FavoriteItem from "@/src/ui/user/FavoriteItem";
+import UserSidebar from "@/features/user/UserSidebar";
+import FavoritesListSkeleton from "@/components/skeleton/FavoritesListSkeleton";
+import FavoriteItem from "@/features/user/FavoriteItem";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";

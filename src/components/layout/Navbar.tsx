@@ -4,21 +4,21 @@ import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { usePathname } from "next/navigation";
 
-import { hydrateCartAtom } from "@/src/store/cartAtoms";
-import { hydrateAuthAtom } from "@/src/store/authAtoms";
-import { hydrateFavoritesAtom } from "@/src/store/favoritesAtom";
-import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
+import { hydrateCartAtom } from "@/store/cartAtoms";
+import { hydrateAuthAtom } from "@/store/authAtoms";
+import { hydrateFavoritesAtom } from "@/store/favoritesAtom";
+import { drawerAtom, closeDrawerAtom } from "@/store/uiAtoms";
 
-import NavbarLogo from "../ui/navbar/NavbarLogo";
-import NavbarLinks from "../ui/navbar/NavbarLinks";
-import NavbarActions from "../ui/navbar/NavbarActions";
+import NavbarLogo from "./NavbarLogo";
+import NavbarLinks from "./NavbarLinks";
+import NavbarActions from "./NavbarActions";
 
-import DrawerOverlay from "../ui/drawers/DrawerOverlay";
-import MenuDrawer from "../ui/drawers/MenuDrawer";
-import CartDrawer from "../ui/drawers/CartDrawer";
-import SearchDrawer from "../ui/drawers/SearchDrawer";
-import AuthModal from "../ui/auth/AuthModal";
-import StoreCategoriesNav from "../ui/StoreCategoriesNav";
+import DrawerOverlay from "./DrawerOverlay";
+import MenuDrawer from "@/features/menu/MenuDrawer";
+import CartDrawer from "@/features/cart/CartDrawer";
+import SearchDrawer from "@/features/search/SearchDrawer";
+import AuthModal from "@/features/auth/AuthModal";
+import StoreCategoriesNav from "@/components/sections/StoreCategoriesNav";
 
 export const Navbar = () => {
   const [drawer] = useAtom(drawerAtom);

@@ -1,9 +1,9 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
+import { drawerAtom, closeDrawerAtom } from "@/store/uiAtoms";
 import Link from "next/link";
-import Headings from "../Headings";
+import Headings from "@/components/common/Headings";
 import ArrowRight from "@/src/icons/ArrowRight";
 
 export default function MenuDrawer() {

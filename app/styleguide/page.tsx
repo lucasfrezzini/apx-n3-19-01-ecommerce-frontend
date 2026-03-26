@@ -1,11 +1,11 @@
 import ArrowRight from "@/src/icons/ArrowRight";
 import Sparkles from "@/src/icons/Sparkles";
-import BannerMarquee from "@/src/ui/BannerMarquee";
-import Button from "@/src/ui/Button";
-import ProductCard from "@/src/ui/ProductCard";
-import Headings from "@/src/ui/Headings";
-import FeaturedProductCard from "@/src/ui/FeatureProductCard";
-import SectionProductDetail from "@/src/components/SectionProductDetail";
+import BannerMarquee from "@/components/common/BannerMarquee";
+import Button from "@/components/common/Button";
+import ProductCard from "@/components/product/ProductCard";
+import Headings from "@/components/common/Headings";
+import FeaturedProductCard from "@/components/product/FeatureProductCard";
+import SectionProductDetail from "@/components/sections/SectionProductDetail";
 
 export default function Styleguide() {
   return (

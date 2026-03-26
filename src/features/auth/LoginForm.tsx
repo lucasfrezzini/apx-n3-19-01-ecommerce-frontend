@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useAtom } from "jotai";
-import { sendCodeAtom, authLoadingAtom } from "@/src/store/authAtoms";
-import Button from "../Button";
+import { sendCodeAtom, authLoadingAtom } from "@/store/authAtoms";
+import Button from "@/components/common/Button";
 
 interface LoginFormProps {
   onSuccess?: () => void;

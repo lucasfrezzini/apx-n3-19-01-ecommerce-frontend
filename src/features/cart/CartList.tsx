@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { cartAtom } from "@/src/store/cartAtoms";
+import { cartAtom } from "@/store/cartAtoms";
 import CartItem from "./CartItem";
 
 export default function CartList() {

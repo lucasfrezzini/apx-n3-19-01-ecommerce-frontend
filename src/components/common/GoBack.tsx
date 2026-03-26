@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import ArrowRight from "../icons/ArrowRight";
+import ArrowRight from "../../icons/ArrowRight";
 
 export default function GoBack() {
   const router = useRouter();

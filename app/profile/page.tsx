@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { userAtom, tokenAtom } from "@/src/store/authAtoms";
 import { openAuthAtom } from "@/src/store/uiAtoms";
 import { apiClient, Address } from "../../apiClient";
-import UserSidebar from "@/src/ui/user/UserSidebar";
-import ProfileSkeleton from "@/src/ui/ProfileSkeleton";
+import UserSidebar from "@/features/user/UserSidebar";
+import ProfileSkeleton from "@/components/skeleton/ProfileSkeleton";
 
 export const dynamic = "force-dynamic";
 

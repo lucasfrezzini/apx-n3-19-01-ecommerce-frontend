@@ -3,7 +3,7 @@
 import { useAtom } from "jotai";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { drawerAtom, closeDrawerAtom } from "@/src/store/uiAtoms";
+import { drawerAtom, closeDrawerAtom } from "@/store/uiAtoms";
 
 export default function SearchDrawer() {
   const [drawer] = useAtom(drawerAtom);

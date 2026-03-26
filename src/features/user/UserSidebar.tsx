@@ -3,7 +3,7 @@
 import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { logoutAtom } from "@/src/store/authAtoms";
+import { logoutAtom } from "@/store/authAtoms";
 
 type SidebarItem = {
   label: string;

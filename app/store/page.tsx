@@ -1,9 +1,9 @@
 "use client";
 
-import ProductGrid from "@/src/components/ProductGrid";
+import ProductGrid from "@/components/product/ProductGrid";
 import { useProducts } from "@/src/hooks/useProducts";
-import ProductGridSkeleton from "@/src/ui/ProductGridSkeleton";
-import Button from "@/src/ui/Button";
+import ProductGridSkeleton from "@/components/skeleton/ProductGridSkeleton";
+import Button from "@/components/common/Button";
 
 export default function StorePage() {
   const { products, loading, loadingMore, hasMore, loadMore } = useProducts();
