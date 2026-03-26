@@ -222,11 +222,11 @@ export default function CheckoutPage() {
     return (
       <div className="mt-[49px]">
         <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">Checkout</h1>
-        <div className="hidden md:block fixed top-[49px] left-64 z-30 bg-background w-[calc(100%-16rem)] border-b border-primary px-6 py-4">
+        <div className="hidden md:block fixed top-[49px] left-0 z-30 bg-background w-full border-b border-primary px-6 py-4">
           <span className="font-bold text-2xl">Checkout</span>
         </div>
-        <main className="md:hidden p-6 pt-4">
-          <div className="border border-primary p-8 text-center">
+        <main className="p-6 pt-[85px] md:pt-[89px]">
+          <div className="border border-primary p-8 text-center max-w-md mx-auto">
             <h2 className="font-bold text-xl mb-4">Login Required</h2>
             <p className="opacity-70 mb-6">You need to be logged in to complete your purchase.</p>
             <button onClick={openAuth} className="px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">
@@ -237,21 +237,6 @@ export default function CheckoutPage() {
             </p>
           </div>
         </main>
-        <div className="hidden md:flex">
-          <UserSidebar activePage="checkout" />
-          <main className="md:pl-72 flex-1 p-6 pt-[89px]">
-            <div className="border border-primary p-8 text-center">
-              <h2 className="font-bold text-xl mb-4">Login Required</h2>
-              <p className="opacity-70 mb-6">You need to be logged in to complete your purchase.</p>
-              <button onClick={openAuth} className="px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">
-                Login
-              </button>
-              <p className="text-sm mt-4 opacity-70">
-                Don't have an account? <button className="underline" onClick={openAuth}>Create one</button>
-              </p>
-            </div>
-          </main>
-        </div>
       </div>
     );
   }

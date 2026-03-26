@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import { userAtom, tokenAtom } from "@/src/store/authAtoms";
+import { openAuthAtom } from "@/src/store/uiAtoms";
 import { getMyOrders } from "@/src/lib/api/orders";
 import { Order } from "../../apiClient";
 import Image from "next/image";
@@ -13,11 +15,14 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default function OrdersPage() {
+  const router = useRouter();
   const [user] = useAtom(userAtom);
   const [token] = useAtom(tokenAtom);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [authLoading, setAuthLoading] = useState(true);
+  const [needsAuth, setNeedsAuth] = useState(false);
+  const [, openAuth] = useAtom(openAuthAtom);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,6 +30,15 @@ export default function OrdersPage() {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (authLoading) return;
+
+    const tokenToUse = token || localStorage.getItem("auth:v1");
+    if (!tokenToUse || !user) {
+      setNeedsAuth(true);
+    }
+  }, [token, user, authLoading]);
 
   useEffect(() => {
     if (authLoading) return;
@@ -62,6 +76,29 @@ export default function OrdersPage() {
         return "bg-yellow-500";
     }
   };
+
+  if (needsAuth) {
+    return (
+      <div className="mt-[49px]">
+        <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">My Orders</h1>
+        <div className="hidden md:block fixed top-[49px] left-0 z-30 bg-background w-full border-b border-primary px-6 py-4">
+          <span className="font-bold text-2xl">My Orders</span>
+        </div>
+        <main className="p-6 pt-[85px] md:pt-[89px]">
+          <div className="border border-primary p-8 text-center max-w-md mx-auto">
+            <h2 className="font-bold text-xl mb-4">Login Required</h2>
+            <p className="opacity-70 mb-6">You need to be logged in to view your orders.</p>
+            <button onClick={openAuth} className="px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">
+              Login
+            </button>
+            <p className="text-sm mt-4 opacity-70">
+              Don't have an account? <button className="underline" onClick={openAuth}>Create one</button>
+            </p>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   if (authLoading || loading) {
     return (

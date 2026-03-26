@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import { userAtom, tokenAtom } from "@/src/store/authAtoms";
+import { openAuthAtom } from "@/src/store/uiAtoms";
 import { apiClient, Address } from "../../apiClient";
 import UserSidebar from "@/src/ui/user/UserSidebar";
 import ProfileSkeleton from "@/src/ui/ProfileSkeleton";
@@ -10,9 +12,12 @@ import ProfileSkeleton from "@/src/ui/ProfileSkeleton";
 export const dynamic = "force-dynamic";
 
 export default function ProfilePage() {
+  const router = useRouter();
   const [user] = useAtom(userAtom);
   const [token, setToken] = useAtom(tokenAtom);
   const [authLoading, setAuthLoading] = useState(true);
+  const [needsAuth, setNeedsAuth] = useState(false);
+  const [, openAuth] = useAtom(openAuthAtom);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -35,6 +40,17 @@ export default function ProfilePage() {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (authLoading) return;
+
+    const tokenToUse =
+      token ||
+      (typeof window !== "undefined" ? localStorage.getItem("auth:v1") : null);
+    if (!tokenToUse || !user) {
+      setNeedsAuth(true);
+    }
+  }, [token, user, authLoading]);
 
   useEffect(() => {
     if (authLoading) return;
@@ -107,6 +123,29 @@ export default function ProfilePage() {
       setSaving(false);
     }
   };
+
+  if (needsAuth) {
+    return (
+      <div className="mt-[49px]">
+        <h1 className="md:hidden font-bold text-2xl p-6 border-b border-primary">My Profile</h1>
+        <div className="hidden md:block fixed top-[49px] left-0 z-30 bg-background w-full border-b border-primary px-6 py-4">
+          <span className="font-bold text-2xl">My Profile</span>
+        </div>
+        <main className="p-6 pt-[85px] md:pt-[89px]">
+          <div className="border border-primary p-8 text-center max-w-md mx-auto">
+            <h2 className="font-bold text-xl mb-4">Login Required</h2>
+            <p className="opacity-70 mb-6">You need to be logged in to view your profile.</p>
+            <button onClick={openAuth} className="px-6 py-3 bg-primary text-background font-bold hover:opacity-90 transition">
+              Login
+            </button>
+            <p className="text-sm mt-4 opacity-70">
+              Don't have an account? <button className="underline" onClick={openAuth}>Create one</button>
+            </p>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   if (authLoading) {
     return (
