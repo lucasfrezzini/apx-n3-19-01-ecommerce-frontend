@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "@/components/common/Button";
 import Link from "next/link";
@@ -30,13 +30,18 @@ const ProductCard: FC<ProductCardProps> = ({
   alt = "Product",
   isNew = false,
 }) => {
+  const [mounted, setMounted] = useState(false);
   const [, addToCart] = useAtom(addToCartAtom);
   const [, openCart] = useAtom(openCartAtom);
   const [favorites] = useAtom(favoritesAtom);
   const [, toggleFavorite] = useAtom(toggleFavoriteAtom);
   const [, hydrateFavorites] = useAtom(hydrateFavoritesAtom);
 
-  const isFavorite = favorites.includes(id);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isFavorite = mounted && favorites.includes(id);
 
   const handleAdd = () => {
     addToCart({
